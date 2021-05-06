@@ -1,8 +1,9 @@
 # Simplify Powershell debugging 
 Set-PSDebug -strict
 
-# Ensure that PSReadLine is loaded
+# Various PowerShell modules
 Import-Module PSReadLine
+Import-Module AngleParse
 
 function Test-IsElevated
 {
@@ -22,7 +23,7 @@ function Test-IsElevated
 function s { Set-Location .. }
 
 ## Load various utils by me - see https://github.com/dontrolle/Powershell
-Import-Module -Name "C:\src\Powershell\nvidiadrivercheck.psm1"
+Import-Module -Name "C:\src\Powershell\nvidiadrivercheck.psm1" -ArgumentList "NVIDIA GeForce RTX 3080", "https://www.nvidia.com/Download/processDriver.aspx?psid=120&pfid=929&rpf=1&osid=57&lid=1&lang=en-us&ctk=0&dtid=1&dtcid=1"
 
 . "c:\src\Powershell\out-clip.ps1"
 . "C:\src\Powershell\Get-FileDefiningFunction.ps1"
