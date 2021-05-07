@@ -2,7 +2,9 @@
 
 Relies on a few modules - can be gotten with PowerShellGet. If PowerShellGet is not already on your system, see [Installing PSGet](https://docs.microsoft.com/en-us/powershell/scripting/gallery/installing-psget?view=powershell-7.1)
 
-## Modules and scripts
+## Dependencies 
+
+### Modules and scripts
 * [PSReadLine](https://github.com/PowerShell/PSReadLine)
 * [Get-ChildItemColor](https://github.com/joonro/Get-ChildItemColor)
 * [Posh-Git](https://github.com/dahlbyk/posh-git)
@@ -11,6 +13,17 @@ Relies on a few modules - can be gotten with PowerShellGet. If PowerShellGet is 
   * For the font, I like "FuraCode Nerd Font Mono", because it has nordic characters; get it (or other Nerd Fonts) here: <https://www.nerdfonts.com/font-downloads>
 * [A few of my own PowerShell utils](https://github.com/dontrolle/Powershell)
 
-## Other
+### Other
 
 * Loads a [Chocolatey](https://chocolatey.org/) profile.
+
+## Usage
+
+Either 
+
+* clone directly into your PowerShell profile location, or,
+* clone in another location, and setup a symlink to the place where PowerShell looks for your profile. I.e., standing in the cloned directory, do something like:
+
+```powershell
+New-Item -Path $PROFILE -ItemType SymbolicLink -Value (Get-Item .\Microsoft.PowerShell_profile.ps1).FullName
+```
