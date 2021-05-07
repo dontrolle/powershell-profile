@@ -11,7 +11,7 @@ Relies on a few modules - can be gotten with PowerShellGet. If PowerShellGet is 
 * [Oh-My-Posh](https://ohmyposh.dev/)
   * Remember to install a Nerd Font and use it your shell (I like Windows Terminal), see https://ohmyposh.dev/docs/fonts
   * For the font, I like "FuraCode Nerd Font Mono", because it has nordic characters; get it (or other Nerd Fonts) here: <https://www.nerdfonts.com/font-downloads>
-* [A few of my own PowerShell utils](https://github.com/dontrolle/Powershell)
+* [A few of my own PowerShell utils](https://github.com/dontrolle/Powershell) - which may have evolved to have their own dependencies. Please check the [README.md](https://github.com/dontrolle/Powershell/README.md) in that repo.
 
 ### Other
 
