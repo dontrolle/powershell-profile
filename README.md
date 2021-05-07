@@ -9,8 +9,8 @@ Relies on a few modules - can be gotten with PowerShellGet. If PowerShellGet is 
 * [Get-ChildItemColor](https://github.com/joonro/Get-ChildItemColor)
 * [Posh-Git](https://github.com/dahlbyk/posh-git)
 * [Oh-My-Posh](https://ohmyposh.dev/)
-  * Remember to install a Nerd Font and use it your shell (I like Windows Terminal), see https://ohmyposh.dev/docs/fonts
-  * For the font, I like "FuraCode Nerd Font Mono", because it has nordic characters; get it (or other Nerd Fonts) here: <https://www.nerdfonts.com/font-downloads>
+  * Remember to install a [Nerd Font](https://github.com/ryanoasis/nerd-fonts/) and use it your shell (I like Windows Terminal), see https://ohmyposh.dev/docs/fonts.
+  * For the font, I like "FuraCode Nerd Font Mono" (in the bundle "FiraCode Nerd Font"), because it has nordic characters; get it (or other Nerd Fonts) here: <https://www.nerdfonts.com/font-downloads>
 * [A few of my own PowerShell utils](https://github.com/dontrolle/Powershell) - which may have evolved to have their own dependencies. Please check notes on usage [in that repo](https://github.com/dontrolle/Powershell/).
 
 ### Other
