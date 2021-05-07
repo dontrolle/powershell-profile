@@ -27,6 +27,7 @@ Import-Module -Name "C:\src\Powershell\nvidiadrivercheck.psm1" -ArgumentList "NV
 
 . "c:\src\Powershell\out-clip.ps1"
 . "C:\src\Powershell\Get-FileDefiningFunction.ps1"
+. "C:\src\Powershell\close-vshandles.ps1"
 
 ### Posh git stuff
 
