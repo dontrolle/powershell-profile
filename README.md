@@ -21,8 +21,8 @@ Relies on a few modules - can be gotten with PowerShellGet. If PowerShellGet is 
 
 Either 
 
-* clone directly into your PowerShell profile location, or,
-* clone in another location, and setup a symlink to the place where PowerShell looks for your profile. I.e., standing in the cloned directory, do something like:
+* clone directly into your PowerShell profile directory, or,
+* clone in another directory, and setup a symlink to the path where PowerShell looks for your profile. I.e., from the cloned directory, do something like:
 
 ```powershell
 New-Item -Path $PROFILE -ItemType SymbolicLink -Value (Get-Item .\Microsoft.PowerShell_profile.ps1).FullName
