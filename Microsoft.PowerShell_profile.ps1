@@ -23,7 +23,15 @@ function Test-IsElevated
 function s { Set-Location .. }
 
 ## Load various utils by me - see https://github.com/dontrolle/Powershell
-Import-Module -Name "C:\src\Powershell\nvidiadrivercheck.psm1" -ArgumentList "NVIDIA GeForce RTX 3080", "https://www.nvidia.com/Download/processDriver.aspx?psid=120&pfid=929&rpf=1&osid=57&lid=1&lang=en-us&ctk=0&dtid=1&dtcid=1"
+
+$ProductType = "GeForce"
+$ProductSeries = "GeForce RTX 30 Series"
+$Product = "GeForce RTX 3080"
+$OperatingSystem = "Windows 10 64-bit"
+$DownloadType = "Game Ready Driver (GRD)"
+$Language = "English (US)"
+
+Import-Module -Name "C:\src\Powershell\nvidiadrivercheck.psm1" -ArgumentList "NVIDIA GeForce RTX 3080", $ProductType, $ProductSeries, $Product, $OperatingSystem, $DownloadType, $Language
 
 . "c:\src\Powershell\out-clip.ps1"
 . "C:\src\Powershell\Get-FileDefiningFunction.ps1"
