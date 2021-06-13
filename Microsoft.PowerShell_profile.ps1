@@ -24,12 +24,12 @@ function s { Set-Location .. }
 
 ## Load various utils by me - see https://github.com/dontrolle/Powershell
 
-$ProductType = "GeForce"
-$ProductSeries = "GeForce RTX 30 Series"
-$Product = "GeForce RTX 3080"
-$OperatingSystem = "Windows 10 64-bit"
-$DownloadType = "Game Ready Driver (GRD)"
-$Language = "English (US)"
+$private:ProductType = "GeForce"
+$private:ProductSeries = "GeForce RTX 30 Series"
+$private:Product = "GeForce RTX 3080"
+$private:OperatingSystem = "Windows 10 64-bit"
+$private:DownloadType = "Game Ready Driver (GRD)"
+$private:Language = "English (US)"
 
 Import-Module -Name "C:\src\Powershell\nvidiadrivercheck.psm1" -ArgumentList "NVIDIA GeForce RTX 3080", $ProductType, $ProductSeries, $Product, $OperatingSystem, $DownloadType, $Language
 
