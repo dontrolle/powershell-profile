@@ -80,4 +80,23 @@ _Write-HeaderInfo "  [npm] npm "
  _Write-HeaderInfo "  Check NVIDIA drivers    Test-NvidiaDriver"
 _Write-HeaderInfo ""
 
+# check for outdated choco packages now and then
+
+$private:chocoOutedDatedLastCheckFile = "$Home\.chocoOutdatedLastCheck"
+$private:chocoOutedDatedLastCheckDateFormat = 'dd-MM-yyyy'
+
+if(!(Test-Path -Path $chocoOutedDatedLastCheckFile)){
+  Get-Date -format $chocoOutedDatedLastCheckDateFormat | Out-File -FilePath $chocoOutedDatedLastCheckFile  
+}
+else {
+  $lastCheckString = Get-Content -Path $chocoOutedDatedLastCheckFile  
+  $lastCheck = [DateTime]::ParseExact($lastCheckString, $chocoOutedDatedLastCheckDateFormat, $null)
+  $lastCheckAddSevenDays = $lastCheck.AddDays(7)
+  $today = Get-Date
+  if($lastCheckAddSevenDays -lt $today){
+    # when this is done only once a week, I'm ok with it printing something on the screen
+    choco outdated
+  }
+}
+
 Set-Location -Path "c:\src"
