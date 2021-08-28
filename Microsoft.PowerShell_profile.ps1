@@ -84,19 +84,29 @@ _Write-HeaderInfo ""
 
 $private:chocoOutedDatedLastCheckFile = "$Home\.chocoOutdatedLastCheck"
 $private:chocoOutedDatedLastCheckDateFormat = 'dd-MM-yyyy'
+$private:performChocoOutdatedCheck = $false
 
 if(!(Test-Path -Path $chocoOutedDatedLastCheckFile)){
-  Get-Date -format $chocoOutedDatedLastCheckDateFormat | Out-File -FilePath $chocoOutedDatedLastCheckFile  
+  # no date for last check recorded; we should check and create file
+  $performChocoOutdatedCheck = $true
 }
 else {
+  # has seven days gone by since last check?
   $lastCheckString = Get-Content -Path $chocoOutedDatedLastCheckFile  
   $lastCheck = [DateTime]::ParseExact($lastCheckString, $chocoOutedDatedLastCheckDateFormat, $null)
   $lastCheckAddSevenDays = $lastCheck.AddDays(7)
   $today = Get-Date
   if($lastCheckAddSevenDays -lt $today){
-    # when this is done only once a week, I'm ok with it printing something on the screen
-    choco outdated
+    $performChocoOutdatedCheck = $true
   }
+}
+
+if($performChocoOutdatedCheck){
+    # Perform choco outdated (when this is done only once a week, I like it outputting to the console)
+    choco outdated
+
+    # Write current date to file, recording that we've performed the check today
+    Get-Date -format $chocoOutedDatedLastCheckDateFormat | Out-File -FilePath $chocoOutedDatedLastCheckFile
 }
 
 Set-Location -Path "c:\src"
