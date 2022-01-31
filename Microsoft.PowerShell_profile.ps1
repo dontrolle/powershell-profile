@@ -71,7 +71,7 @@ function _Write-HeaderInfo($line)
   Write-Host $line -ForegroundColor Yellow
 }
 
-Write-Host "Installing stuff:" -ForegroundColor DarkYellow 
+Write-Host "Installing stuff" -ForegroundColor DarkYellow 
 _Write-HeaderInfo "  [apps] winget install"
 _Write-HeaderInfo "  [apps] choco install"
 _Write-HeaderInfo "  [powershell] install-module"
@@ -80,33 +80,38 @@ _Write-HeaderInfo "  [npm] npm "
  _Write-HeaderInfo "  Check NVIDIA drivers    Test-NvidiaDriver"
 _Write-HeaderInfo ""
 
-# check for outdated choco packages now and then
+# check for outdated packages now and then
 
-$private:chocoOutedDatedLastCheckFile = "$Home\.chocoOutdatedLastCheck"
-$private:chocoOutedDatedLastCheckDateFormat = 'dd-MM-yyyy'
-$private:performChocoOutdatedCheck = $false
+$private:outedDatedLastCheckFile = "$Home\.outdatedLastCheck"
+$private:outedDatedLastCheckDateFormat = 'dd-MM-yyyy'
+$private:performOutdatedCheck = $false
 
-if(!(Test-Path -Path $chocoOutedDatedLastCheckFile)){
+if(!(Test-Path -Path $outedDatedLastCheckFile)){
   # no date for last check recorded; we should check and create file
-  $performChocoOutdatedCheck = $true
+  $performOutdatedCheck = $true
 }
 else {
   # has seven days gone by since last check?
-  $lastCheckString = Get-Content -Path $chocoOutedDatedLastCheckFile  
-  $lastCheck = [DateTime]::ParseExact($lastCheckString, $chocoOutedDatedLastCheckDateFormat, $null)
+  $lastCheckString = Get-Content -Path $outedDatedLastCheckFile  
+  $lastCheck = [DateTime]::ParseExact($lastCheckString, $outedDatedLastCheckDateFormat, $null)
   $lastCheckAddSevenDays = $lastCheck.AddDays(7)
   $today = Get-Date
   if($lastCheckAddSevenDays -lt $today){
-    $performChocoOutdatedCheck = $true
+    $performOutdatedCheck = $true
   }
 }
 
-if($performChocoOutdatedCheck){
+if($performOutdatedCheck){
     # Perform choco outdated (when this is done only once a week, I like it outputting to the console)
     choco outdated
 
+    # check for winget upgradeable
+    _Write-HeaderInfo ""
+    _Write-HeaderInfo "Winget upgradeable:"
+    winget upgrade
+
     # Write current date to file, recording that we've performed the check today
-    Get-Date -format $chocoOutedDatedLastCheckDateFormat | Out-File -FilePath $chocoOutedDatedLastCheckFile
+    Get-Date -format $outedDatedLastCheckDateFormat | Out-File -FilePath $outedDatedLastCheckFile
 }
 
 Set-Location -Path "c:\src"
