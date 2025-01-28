@@ -49,12 +49,12 @@ Set-Alias ls Get-ChildItemColorFormatWide -Option AllScope
 # Ensure posh-git is loaded
 Import-Module -Name posh-git
 
-# For oh-my-posh:
+# oh-my-posh load and set theme
 # * Remember to install a nerd font and use it your shell (I like Terminal), see https://ohmyposh.dev/docs/fonts
 # * For font, I like "FuraCode Nerd Font Mono", because it has nordic characters
 
 # Set prompt theme
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\powerline.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/powerlevel10k_rainbow.omp.json" | Invoke-Expression
 
 # winget autocomplete
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
