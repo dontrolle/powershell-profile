@@ -68,12 +68,6 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
       }
 }
 
-### Choco stuff
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
-}
-
 # A little header with some reminders, because I forget things
 
 function _Write-HeaderInfo($line)
@@ -113,9 +107,6 @@ else {
 }
 
 if($performOutdatedCheck){
-    # Perform choco outdated (when this is done, I like it outputting to the console)
-    choco outdated
-
     # check for winget upgradeable
     _Write-HeaderInfo ""
     _Write-HeaderInfo "Winget upgradeable:"
