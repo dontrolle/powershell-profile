@@ -94,6 +94,7 @@ _Write-HeaderInfo ""
 
 $private:outedDatedLastCheckFile = "$Home\.outdatedLastCheck"
 $private:outedDatedLastCheckDateFormat = 'dd-MM-yyyy'
+$private:outedDatedLastCheckPeriodInDays = 21
 $private:performOutdatedCheck = $false
 
 if(!(Test-Path -Path $outedDatedLastCheckFile)){
@@ -101,18 +102,18 @@ if(!(Test-Path -Path $outedDatedLastCheckFile)){
   $performOutdatedCheck = $true
 }
 else {
-  # has seven days gone by since last check?
+  # has relevant number of days gone by since last check?
   $lastCheckString = Get-Content -Path $outedDatedLastCheckFile  
   $lastCheck = [DateTime]::ParseExact($lastCheckString, $outedDatedLastCheckDateFormat, $null)
-  $lastCheckAddSevenDays = $lastCheck.AddDays(7)
+  $lastCheckAddDays = $lastCheck.AddDays($outedDatedLastCheckPeriodInDays)
   $today = Get-Date
-  if($lastCheckAddSevenDays -lt $today){
+  if($lastCheckAddDays -lt $today){
     $performOutdatedCheck = $true
   }
 }
 
 if($performOutdatedCheck){
-    # Perform choco outdated (when this is done only once a week, I like it outputting to the console)
+    # Perform choco outdated (when this is done, I like it outputting to the console)
     choco outdated
 
     # check for winget upgradeable
