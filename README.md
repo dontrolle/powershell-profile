@@ -13,10 +13,6 @@ Relies on a few modules - can be gotten with PowerShellGet. If PowerShellGet is 
   * For the font, I like "FuraCode Nerd Font Mono" (in the bundle "FiraCode Nerd Font"), because it has nordic characters; get it (or other Nerd Fonts) here: <https://www.nerdfonts.com/font-downloads>
 * [A few of my own PowerShell utils](https://github.com/dontrolle/Powershell) - which may have evolved to have their own dependencies. Please check notes on usage [in that repo](https://github.com/dontrolle/Powershell/).
 
-### Other
-
-* Loads a [Chocolatey](https://chocolatey.org/) profile.
-
 ## Usage
 
 Either 
