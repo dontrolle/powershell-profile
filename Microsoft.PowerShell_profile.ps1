@@ -80,7 +80,8 @@ _Write-HeaderInfo "  [apps] choco install"
 _Write-HeaderInfo "  [powershell] install-module"
 _Write-HeaderInfo "  [npm] npm "
  Write-Host "Other" -ForegroundColor DarkYellow 
- _Write-HeaderInfo "  Check NVIDIA drivers    Test-NvidiaDriver"
+ _Write-HeaderInfo "  Check NVIDIA drivers      Test-NvidiaDriver"
+ _Write-HeaderInfo "  List loaded PS Modules    Get-Module -ListAvailable"
 _Write-HeaderInfo ""
 
 # check for outdated packages now and then
