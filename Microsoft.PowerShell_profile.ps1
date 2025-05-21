@@ -62,6 +62,11 @@ function OpenWithRider ([string] $path) { rider64.exe $path }
 
 Set-Alias -Name rider -Value OpenWithRider
 
+# Chris Titus' winutil: https://github.com/ChrisTitusTech/winutil/tree/main
+Function RunCTTWinUtil { Invoke-RestMethod "https://christitus.com/win" | Invoke-Expression }
+
+Set-Alias -Name winutil -Value RunCTTWinUtil
+
 ## Load various utils by me - see https://github.com/dontrolle/Powershell
 
 if ($ImportNvidiaDrivercheck)
