@@ -96,7 +96,7 @@ Import-Module -Name posh-git
 # * For font, I like "FuraCode Nerd Font Mono", because it has nordic characters
 
 # Set prompt theme
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/powerlevel10k_rainbow.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "powerlevel10k_rainbow" | Invoke-Expression
 
 # winget autocomplete
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
