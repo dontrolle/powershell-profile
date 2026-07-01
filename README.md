@@ -13,6 +13,7 @@ My personal PowerShell profile, shared in case it's useful to others.
 * [Structure](#structure)
 * [Customization](#customization)
 * [Linting](#linting)
+* [Tests](#tests)
 * [License](#license)
 
 ## Prerequisites
@@ -83,6 +84,21 @@ A [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer) GitHub Acti
 ```powershell
 Install-Module -Name PSScriptAnalyzer -Scope CurrentUser
 Invoke-ScriptAnalyzer -Path . -Settings .\PSScriptAnalyzerSettings.psd1 -Recurse
+```
+
+## Tests
+
+Unit tests live under `Tests/` and use [Pester](https://pester.dev/) v5. They cover:
+
+* `Tests/ScriptSyntax.Tests.ps1` - a syntax smoke test asserting every `*.ps1` file parses cleanly.
+* `Tests/Helpers.Tests.ps1` - `_Test-DotSourceTarget` from `00-helpers.ps1`.
+* `Tests/Aliases.Tests.ps1` - the `.sln`-resolution logic in `OpenWithVisualStudio` from `30-aliases-and-tools.ps1` (with `Get-ChildItem`/`Start-Process` mocked).
+
+The same CI workflow runs these on every push/PR. Run them locally with:
+
+```powershell
+Install-Module -Name Pester -MinimumVersion 5.0.0 -Scope CurrentUser
+Invoke-Pester -Path .\Tests
 ```
 
 ## License
