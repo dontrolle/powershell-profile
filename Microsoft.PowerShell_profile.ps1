@@ -1,8 +1,41 @@
 # Various PowerShell modules
-Import-Module PSReadLine
-Import-Module AngleParse
+
+# Helper: import a module only if it's installed, otherwise warn and continue
+# (so a missing dependency doesn't abort loading of the rest of the profile)
+function _Import-ModuleIfAvailable([string]$Name)
+{
+  if (Get-Module -ListAvailable -Name $Name)
+  {
+    Import-Module -Name $Name
+  }
+  else
+  {
+    Write-Warning "Module '$Name' not found - skipping. Install it with: Install-Module $Name"
+  }
+}
+
+# Helper: dot-source a script only if it exists, otherwise warn and continue
+function _Invoke-DotSourceIfExists([string]$Path)
+{
+  if (Test-Path -Path $Path)
+  {
+    . $Path
+  }
+  else
+  {
+    Write-Warning "Script '$Path' not found - skipping."
+  }
+}
+
+_Import-ModuleIfAvailable PSReadLine
+_Import-ModuleIfAvailable AngleParse
 
 # Various options
+## path to the dontrolle/Powershell utils repo (https://github.com/dontrolle/Powershell)
+## override by setting $env:POWERSHELL_UTILS_PATH before this profile loads, e.g. in your own
+## profile.local.ps1 (see README), if you cloned it somewhere other than the default below.
+$private:PowershellUtilsPath = if ($env:POWERSHELL_UTILS_PATH) { $env:POWERSHELL_UTILS_PATH } else { "$Home\src\Powershell" }
+
 ## controls for outdated checks
 $private:outedDatedLastCheckFile = "$Home\.outdatedLastCheck"
 $private:outedDatedLastCheckDateFormat = 'dd-MM-yyyy'
@@ -68,18 +101,26 @@ Set-Alias -Name winutil -Value RunCTTWinUtil
 
 if ($ImportNvidiaDrivercheck)
 {
-  Import-Module -Name "C:\src\Powershell\nvidiadrivercheck.psm1" -ArgumentList "NVIDIA GeForce RTX 3080", $ProductType, $ProductSeries, $Product, $OperatingSystem, $DownloadType, $Language
+  $private:nvidiaModulePath = "$PowershellUtilsPath\nvidiadrivercheck.psm1"
+  if (Test-Path -Path $nvidiaModulePath)
+  {
+    Import-Module -Name $nvidiaModulePath -ArgumentList "NVIDIA GeForce RTX 3080", $ProductType, $ProductSeries, $Product, $OperatingSystem, $DownloadType, $Language
+  }
+  else
+  {
+    Write-Warning "'$nvidiaModulePath' not found - skipping NVIDIA driver check. Is `$PowershellUtilsPath ('$PowershellUtilsPath') correct?"
+  }
 }
 
-. "c:\src\Powershell\out-clip.ps1"
-. "C:\src\Powershell\Get-FileDefiningFunction.ps1"
-. "C:\src\Powershell\close-vshandles.ps1"
-. "C:\src\Powershell\Update-File.ps1"
+_Invoke-DotSourceIfExists "$PowershellUtilsPath\out-clip.ps1"
+_Invoke-DotSourceIfExists "$PowershellUtilsPath\Get-FileDefiningFunction.ps1"
+_Invoke-DotSourceIfExists "$PowershellUtilsPath\close-vshandles.ps1"
+_Invoke-DotSourceIfExists "$PowershellUtilsPath\Update-File.ps1"
 
 ### git stuff
 
 # Ensure that Get-ChildItemColor is loaded
-Import-Module Get-ChildItemColor
+_Import-ModuleIfAvailable Get-ChildItemColor
 
 # Set l and ls alias to use the new Get-ChildItemColor cmdlets
 Set-Alias l Get-ChildItemColor -Option AllScope
@@ -90,17 +131,31 @@ Set-Alias ls Get-ChildItemColorFormatWide -Option AllScope
 # * For font, I like "FuraCode Nerd Font Mono", because it has nordic characters
 
 # Set prompt theme
-oh-my-posh init pwsh --config "powerlevel10k_rainbow" | Invoke-Expression
+if (Get-Command -Name oh-my-posh -ErrorAction SilentlyContinue)
+{
+  oh-my-posh init pwsh --config "powerlevel10k_rainbow" | Invoke-Expression
+}
+else
+{
+  Write-Warning "oh-my-posh not found on PATH - skipping prompt theme. See https://ohmyposh.dev/docs/installation/windows"
+}
 
-# winget autocomplete
-Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
-  param($wordToComplete, $commandAst, $cursorPosition)
-      [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
-      $Local:word = $wordToComplete.Replace('"', '""')
-      $Local:ast = $commandAst.ToString().Replace('"', '""')
-      winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
-          [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
-      }
+# winget autocomplete (only if winget is installed)
+if (Get-Command -Name winget -ErrorAction SilentlyContinue)
+{
+  Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
+    param($wordToComplete, $commandAst, $cursorPosition)
+        [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
+        $Local:word = $wordToComplete.Replace('"', '""')
+        $Local:ast = $commandAst.ToString().Replace('"', '""')
+        winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
+            [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+        }
+  }
+}
+else
+{
+  Write-Warning "winget not found on PATH - skipping winget autocomplete and upgrade checks."
 }
 
 # A little header with some reminders, because I forget things
@@ -139,7 +194,7 @@ else {
   }
 }
 
-if($outDatedCheckNecessary){
+if($outDatedCheckNecessary -and (Get-Command -Name winget -ErrorAction SilentlyContinue)){
     # check for winget upgradeable
     _Write-HeaderInfo ""
     _Write-HeaderInfo "Winget upgradeable:"
