@@ -1,6 +1,3 @@
-# Simplify Powershell debugging 
-Set-PSDebug -strict
-
 # Various PowerShell modules
 Import-Module PSReadLine
 Import-Module AngleParse
@@ -79,7 +76,7 @@ if ($ImportNvidiaDrivercheck)
 . "C:\src\Powershell\close-vshandles.ps1"
 . "C:\src\Powershell\Update-File.ps1"
 
-### Posh git stuff
+### git stuff
 
 # Ensure that Get-ChildItemColor is loaded
 Import-Module Get-ChildItemColor
@@ -87,9 +84,6 @@ Import-Module Get-ChildItemColor
 # Set l and ls alias to use the new Get-ChildItemColor cmdlets
 Set-Alias l Get-ChildItemColor -Option AllScope
 Set-Alias ls Get-ChildItemColorFormatWide -Option AllScope
-
-# Ensure posh-git is loaded
-Import-Module -Name posh-git
 
 # oh-my-posh load and set theme
 # * Remember to install a nerd font and use it your shell (I like Terminal), see https://ohmyposh.dev/docs/fonts
