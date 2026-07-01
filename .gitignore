@@ -1,0 +1,11 @@
+# Personal/local overrides - not meant to be shared
+profile.local.ps1
+
+# OS cruft
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editor folders
+.vscode/
+.idea/

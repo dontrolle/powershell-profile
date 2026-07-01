@@ -93,6 +93,8 @@ function OpenWithRider ([string] $path) { rider64.exe $path }
 Set-Alias -Name rider -Value OpenWithRider
 
 # Chris Titus' winutil: https://github.com/ChrisTitusTech/winutil/tree/main
+# NOTE: this downloads and executes a remote script from christitus.com on every call - review
+# https://github.com/ChrisTitusTech/winutil if you want to verify what it does before trusting it.
 Function RunCTTWinUtil { Invoke-RestMethod "https://christitus.com/win" | Invoke-Expression }
 
 Set-Alias -Name winutil -Value RunCTTWinUtil
