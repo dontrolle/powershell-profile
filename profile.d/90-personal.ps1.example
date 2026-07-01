@@ -1,0 +1,6 @@
+# Example of a personal touch (the author starts every shell in a fixed working directory).
+# This file has the .example suffix so it is NOT loaded automatically. To use it (or anything
+# like it), copy it to profile.local.ps1 in the repo root (gitignored) and edit as you like -
+# see README's "Customization" section for details.
+
+Set-Location -Path "c:\src"

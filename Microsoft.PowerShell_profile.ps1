@@ -16,3 +16,14 @@ else
 {
   Write-Warning "'$ProfileModulesPath' not found - nothing loaded. Did profile.d get moved or deleted?"
 }
+
+# Optional, gitignored, personal override file - not part of the repo. Use it for anything specific
+# to you/your machine (e.g. a working directory to start in, GPU model for the NVIDIA driver check,
+# or a different $PowershellUtilsPath) without touching tracked files. See profile.d/*.example for
+# inspiration and the README's "Customization" section for details.
+$private:ProfileLocalOverride = Join-Path $PSScriptRoot 'profile.local.ps1'
+
+if (Test-Path -Path $ProfileLocalOverride)
+{
+  . $ProfileLocalOverride
+}

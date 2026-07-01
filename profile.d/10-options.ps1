@@ -10,7 +10,9 @@ $private:outedDatedLastCheckFile = "$Home\.outdatedLastCheck"
 $private:outedDatedLastCheckDateFormat = 'dd-MM-yyyy'
 $private:outedDatedLastCheckPeriodInDays = 21
 
-# controls for (optional) check for NVidia drivers
+# controls for (optional) check for NVidia drivers - the values below are just an example from
+# the author's machine; override them (and $ImportNvidiaDrivercheck) in profile.local.ps1 if you
+# want this check, rather than editing this tracked file.
 $private:ImportNvidiaDrivercheck = $false
 $private:ProductType = "GeForce"
 $private:ProductSeries = "GeForce RTX 30 Series"
