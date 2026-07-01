@@ -79,7 +79,7 @@ Feel free to add, remove, reorder, or split these files further to fit your own 
 
 ## Linting
 
-A [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer) GitHub Actions workflow runs on every push/PR. Run it locally with:
+The [`CI` GitHub Actions workflow](.github/workflows/ci.yml) runs PSScriptAnalyzer (and the Pester tests, see [Tests](#tests) below) on every push/PR. Run the lint locally with:
 
 ```powershell
 Install-Module -Name PSScriptAnalyzer -Scope CurrentUser
@@ -94,7 +94,7 @@ Unit tests live under `Tests/` and use [Pester](https://pester.dev/) v5. They co
 * `Tests/Helpers.Tests.ps1` - `_Test-DotSourceTarget` from `00-helpers.ps1`.
 * `Tests/Aliases.Tests.ps1` - the `.sln`-resolution logic in `OpenWithVisualStudio` from `30-aliases-and-tools.ps1` (with `Get-ChildItem`/`Start-Process` mocked).
 
-The same CI workflow runs these on every push/PR. Run them locally with:
+Run them locally with:
 
 ```powershell
 Install-Module -Name Pester -MinimumVersion 5.0.0 -Scope CurrentUser
