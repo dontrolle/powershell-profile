@@ -25,7 +25,6 @@ My personal PowerShell profile, shared in case it's useful to others.
 
 ### Modules and scripts
 * [PSReadLine](https://github.com/PowerShell/PSReadLine)
-* [AngleParse](https://www.powershellgallery.com/packages/AngleParse)
 * [Get-ChildItemColor](https://github.com/joonro/Get-ChildItemColor)
 * [Oh-My-Posh](https://ohmyposh.dev/) (supersedes Posh-Git; no need to also install Posh-Git)
   * Remember to install a [Nerd Font](https://github.com/ryanoasis/nerd-fonts/) and use it your shell (I like Windows Terminal), see https://ohmyposh.dev/docs/fonts.
@@ -61,8 +60,8 @@ git pull
 | File | Purpose |
 | --- | --- |
 | `00-helpers.ps1` | Shared helper functions (safe module import/dot-source, `Test-IsElevated`, etc.) |
-| `10-options.ps1` | Config variables - utils path, outdated-check settings, NVIDIA driver-check example |
-| `20-modules.ps1` | PSReadLine / AngleParse |
+| `10-options.ps1` | Config variables - utils path, outdated-check settings |
+| `20-modules.ps1` | PSReadLine |
 | `30-aliases-and-tools.ps1` | `s`, `vs`/`OpenWithVisualStudio`, `rider`/`OpenWithRider`, `winutil` |
 | `40-utils-import.ps1` | Loads scripts from the [dontrolle/Powershell](https://github.com/dontrolle/Powershell) utils repo |
 | `50-prompt-and-git.ps1` | Get-ChildItemColor, `l`/`ls` aliases, oh-my-posh prompt |
@@ -75,8 +74,7 @@ Feel free to add, remove, reorder, or split these files further to fit your own 
 ## Customization
 
 * **Utils path**: by default the profile looks for the [dontrolle/Powershell](https://github.com/dontrolle/Powershell) utils repo at `$Home\src\Powershell`. Override this by setting `$env:POWERSHELL_UTILS_PATH` before the profile loads, or in `profile.local.ps1` (see below).
-* **`profile.local.ps1`**: an optional, gitignored file in the repo root. If present, it is dot-sourced *first*, before anything in `profile.d/`, so it can pre-set any option variable used in `profile.d/10-options.ps1` (e.g. `$PowershellUtilsPath`, NVIDIA GPU model) as well as run arbitrary personal tweaks (e.g. a starting directory - see `profile.d/90-personal.ps1.example`) - all without editing tracked files.
-* **NVIDIA driver check**: off by default (`$ImportNvidiaDrivercheck = $false` in `10-options.ps1`). The GPU model values there are just the author's example; override them (and flip the flag on) in `profile.local.ps1` if you want this check.
+* **`profile.local.ps1`**: an optional, gitignored file in the repo root. If present, it is dot-sourced *first*, before anything in `profile.d/`, so it can pre-set any option variable used in `profile.d/10-options.ps1` (e.g. `$PowershellUtilsPath`) as well as run arbitrary personal tweaks (e.g. a starting directory - see `profile.d/90-personal.ps1.example`) - all without editing tracked files.
 
 ## Linting
 

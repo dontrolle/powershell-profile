@@ -13,7 +13,7 @@ $private:ProfileRoot = if ($ProfileScriptItem.LinkTarget) { Split-Path -Path $Pr
 
 # Optional, gitignored, personal override file - not part of the repo. Loaded first (before
 # profile.d/*.ps1) so it can pre-set any option variable used in profile.d/10-options.ps1 (e.g.
-# $PowershellUtilsPath, NVIDIA GPU model) as well as run arbitrary personal tweaks (e.g. a starting
+# $PowershellUtilsPath) as well as run arbitrary personal tweaks (e.g. a starting
 # directory). See profile.d/*.example for inspiration and the README's "Customization" section.
 $private:ProfileLocalOverride = Join-Path $ProfileRoot 'profile.local.ps1'
 

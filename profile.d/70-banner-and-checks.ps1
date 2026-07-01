@@ -4,10 +4,6 @@ Write-Host "Installing stuff" -ForegroundColor DarkYellow
 _Write-HeaderInfo "  [powershell]`t`tInstall-Module"
  Write-Host "Other" -ForegroundColor DarkYellow
 
- if($ImportNvidiaDrivercheck) {
-  _Write-HeaderInfo "  Check NVIDIA drivers`tTest-NvidiaDriver"
- }
-
  _Write-HeaderInfo "  Loaded PS Modules`tGet-Module -ListAvailable"
 _Write-HeaderInfo ""
 
