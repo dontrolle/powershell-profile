@@ -11,6 +11,17 @@
 $private:ProfileScriptItem = Get-Item -Path $PSCommandPath
 $private:ProfileRoot = if ($ProfileScriptItem.LinkTarget) { Split-Path -Path $ProfileScriptItem.LinkTarget -Parent } else { $PSScriptRoot }
 
+# Optional, gitignored, personal override file - not part of the repo. Loaded first (before
+# profile.d/*.ps1) so it can pre-set any option variable used in profile.d/10-options.ps1 (e.g.
+# $PowershellUtilsPath, NVIDIA GPU model) as well as run arbitrary personal tweaks (e.g. a starting
+# directory). See profile.d/*.example for inspiration and the README's "Customization" section.
+$private:ProfileLocalOverride = Join-Path $ProfileRoot 'profile.local.ps1'
+
+if (Test-Path -Path $ProfileLocalOverride)
+{
+  . $ProfileLocalOverride
+}
+
 $private:ProfileModulesPath = Join-Path $ProfileRoot 'profile.d'
 
 if (Test-Path -Path $ProfileModulesPath)
@@ -22,16 +33,5 @@ if (Test-Path -Path $ProfileModulesPath)
 else
 {
   Write-Warning "'$ProfileModulesPath' not found - nothing loaded. Did profile.d get moved or deleted?"
-}
-
-# Optional, gitignored, personal override file - not part of the repo. Use it for anything specific
-# to you/your machine (e.g. a working directory to start in, GPU model for the NVIDIA driver check,
-# or a different $PowershellUtilsPath) without touching tracked files. See profile.d/*.example for
-# inspiration and the README's "Customization" section for details.
-$private:ProfileLocalOverride = Join-Path $ProfileRoot 'profile.local.ps1'
-
-if (Test-Path -Path $ProfileLocalOverride)
-{
-  . $ProfileLocalOverride
 }
 

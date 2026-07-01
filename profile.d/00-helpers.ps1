@@ -12,16 +12,19 @@ function _Import-ModuleIfAvailable([string]$Name)
   }
 }
 
-function _Invoke-DotSourceIfExists([string]$Path)
+function _Test-DotSourceTarget([string]$Path)
 {
+  # NOTE: intentionally does not dot-source $Path itself - dot-sourcing from inside a function
+  # would trap anything the script defines in this function's local scope, discarding it once the
+  # function returns. Callers must dot-source directly, e.g.:
+  #   if (_Test-DotSourceTarget $path) { . $path }
   if (Test-Path -Path $Path)
   {
-    . $Path
+    return $true
   }
-  else
-  {
-    Write-Warning "Script '$Path' not found - skipping."
-  }
+
+  Write-Warning "Script '$Path' not found - skipping."
+  return $false
 }
 
 function _Write-HeaderInfo($line)

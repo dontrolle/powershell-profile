@@ -13,7 +13,14 @@ if ($ImportNvidiaDrivercheck)
   }
 }
 
-_Invoke-DotSourceIfExists "$PowershellUtilsPath\out-clip.ps1"
-_Invoke-DotSourceIfExists "$PowershellUtilsPath\Get-FileDefiningFunction.ps1"
-_Invoke-DotSourceIfExists "$PowershellUtilsPath\close-vshandles.ps1"
-_Invoke-DotSourceIfExists "$PowershellUtilsPath\Update-File.ps1"
+$private:UtilsOutClipPath = "$PowershellUtilsPath\out-clip.ps1"
+if (_Test-DotSourceTarget $UtilsOutClipPath) { . $UtilsOutClipPath }
+
+$private:UtilsGetFileDefiningFunctionPath = "$PowershellUtilsPath\Get-FileDefiningFunction.ps1"
+if (_Test-DotSourceTarget $UtilsGetFileDefiningFunctionPath) { . $UtilsGetFileDefiningFunctionPath }
+
+$private:UtilsCloseVsHandlesPath = "$PowershellUtilsPath\close-vshandles.ps1"
+if (_Test-DotSourceTarget $UtilsCloseVsHandlesPath) { . $UtilsCloseVsHandlesPath }
+
+$private:UtilsUpdateFilePath = "$PowershellUtilsPath\Update-File.ps1"
+if (_Test-DotSourceTarget $UtilsUpdateFilePath) { . $UtilsUpdateFilePath }
