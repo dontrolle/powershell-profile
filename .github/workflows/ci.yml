@@ -1,4 +1,4 @@
-name: PSScriptAnalyzer
+name: CI
 
 on:
   push:

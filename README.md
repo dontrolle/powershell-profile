@@ -1,6 +1,6 @@
 # My PowerShell profile
 
-[![PSScriptAnalyzer](https://github.com/dontrolle/powershell-profile/actions/workflows/psscriptanalyzer.yml/badge.svg)](https://github.com/dontrolle/powershell-profile/actions/workflows/psscriptanalyzer.yml)
+[![CI](https://github.com/dontrolle/powershell-profile/actions/workflows/ci.yml/badge.svg)](https://github.com/dontrolle/powershell-profile/actions/workflows/ci.yml)
 
 My personal PowerShell profile, shared in case it's useful to others.
 
